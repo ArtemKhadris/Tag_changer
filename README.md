@@ -15,6 +15,8 @@ Initial install for Linux and MacOS:
 python3 -m pip install PySimpleGUI
 ```
 
+To run, save the MAIN and FRONT files in the same directory. After, run the file MAIN.
+
 ## Manual
 ### 1
 
