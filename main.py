@@ -2,17 +2,6 @@ import PySimpleGUI as sg
 from pathlib import Path
 import front
 
-global paths
-global tags
-global path
-global data
-global tag
-global open_tag
-global close_tag
-global idxs
-global tags_in_file
-global filename
-
 def first_window():
     layout = [
         [sg.Text('Choose XML files and Tag:')],
@@ -29,8 +18,10 @@ def first_window():
             break
         if event == "Submit":
             if values['_FILES_'] != '':
+                global paths
                 paths = values['_FILES_'].split(';')
                 if values['_TAG_'] != '':
+                    global tags
                     tags = values['_TAG_'].split(';')
                     second_window()
                 else:
@@ -43,12 +34,20 @@ def first_window():
     window.close()
 
 def second_window():
+    global path
     for path in paths:
         with open(path, 'r') as f:
+            global data
             data = f.read()
+        global tag
         for tag in tags:
+            global open_tag
+            global close_tag
+            global idxs
             open_tag, close_tag, idxs = front.tag_counter(tag, data)
+            global filename
             filename = Path(path).name
+            global tags_in_file
             tags_in_file = front.tg_in_file(path)
             if open_tag in data and open_tag in tags_in_file:
                 layout = [
